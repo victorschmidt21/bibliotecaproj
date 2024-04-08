@@ -4,8 +4,9 @@
 FILE* arquivo;
 #define tamanho 100
 #define arquivoFechar fclose(arquivo);
-#define arquivoLeitura arquivo = fopen(nomedoarquivo, "r");
-#define arquivoEditar arquivo = fopen(nomedoarquivo, "a");
+#define arquivoLeitura arquivo = fopen(nomedoarquivo, "rb");
+#define arquivoLeitura2 arquivo = fopen(nomedoarquivo2, "rb");
+#define arquivoEditar arquivo = fopen(nomedoarquivo, "ab");
 #define lerInformacoes array[elementoArray], tamanho, arquivo
 
 int elementoArray = 0;

@@ -94,7 +94,7 @@ int cadastrarLivro(char *nomedoarquivo)
 
     arquivoEditar;
 
-    fprintf(arquivo, "%s", nome);
+    fwrite(nome, sizeof(nome), 1, arquivo);
 
     arquivoFechar;
     int sentinela = 0;
@@ -225,7 +225,7 @@ int cadastrarCliente(char *nomedoarquivo)
 
     arquivoEditar;
 
-    fprintf(arquivo, "%s", nome2);
+    fwrite(nome2, sizeof(nome2), 1, arquivo);
 
     arquivoFechar;
 
@@ -244,7 +244,7 @@ int cadastrarCpf(char *nomedoarquivo)
 
     arquivoEditar;
 
-    fprintf(arquivo, "%s", cpf);
+    fwrite(cpf, sizeof(cpf), 1, arquivo);
 
     arquivoFechar;
 
@@ -457,49 +457,84 @@ int emprestimoLivro()
     int codigo;
 
     printf("EMPRESTIMO\n\n");
-    printf("Digite o codigo do livro: \n");
-    scanf("%d", &codigo);
-    for (int i = 1; i < elementoArray; i++)
+    int sentinela = 0;
+    while (sentinela == 0)
     {
-        if (codigo < 0 || codigo >= elementoArray)
+
+        printf("Digite o codigo do livro: \n");
+        scanf("%d", &codigo);
+        for (int i = 1; i < elementoArray; i++)
         {
-            printf("Digite um codigo valido!\n");
-            emprestimoLivro();
-        }
-        if (codigo == i)
-        {
-            printf("\nLivro escolhido: \n");
-            printf("%s", livros[i].nome);
-            livros[i].emprestimo = 1;
-        }
-        else
-        {
-            continue;
+
+            if (livros[codigo].emprestimo == 1)
+            {
+                printf("O livro %s ja esta emprestado.", livros[codigo].nome);
+                int condicao = 0;
+                printf("(1)Tentar novamente              (2)Voltar ao menu");
+                scanf("%i", &condicao);
+                fflush(stdin);
+                if (condicao == 1)
+                {
+                    break;
+                }
+                else
+                {
+                    menu();
+                }
+            }
+            if (codigo < 0 || codigo >= elementoArray)
+            {
+                printf("Digite um codigo valido!\n");
+                break;
+            }
+            if (codigo == i)
+            {
+                printf("\nLivro escolhido: \n");
+                printf("%s", livros[i].nome);
+                livros[i].emprestimo = 1;
+                sentinela = 1;
+                break;
+            }
         }
     }
-    int sentinela = 0;
+    int sentinela2 = 0;
 
-    while (sentinela == 0)
+    while (sentinela2 == 0)
     {
 
         printf("Digite o codigo do Cliente: \n");
         scanf("%d", &codigo);
         for (int i = 0; i < elementoArray; i++)
         {
+            if (clientes[codigo].emprestimo == 1)
+            {
+                printf("O cliente ");
+                printf("%s ja possui um emprestimo.", clientes[codigo].nome2);
+                int condicao = 0;
+                printf("(1)Tentar novamente              (2)Voltar ao menu\n");
+                scanf("%i", &condicao);
+                fflush(stdin);
+                if (condicao == 1)
+                {
+                    break;
+                }
+                else
+                {
+                    menu();
+                }
+            }
             if (codigo < 0 || codigo >= elementoArray)
             {
                 printf("Digite um codigo valido!\n");
-                emprestimoLivro();
+                break;
             }
             if (codigo == i)
             {
                 printf("\nCliente escolhido: \n\n");
                 printf("%s", clientes[i].nome2);
                 clientes[i].emprestimo = 1;
-            }
-            else
-            {
-                continue;
+                sentinela2 = 1;
+                break;
             }
         }
     }
@@ -511,49 +546,86 @@ int emprestimoLivro()
 int devolucao()
 {
     int codigo;
-    printf("DEVOLUCAO");
-    printf("Digite o codigo do livro.");
-    scanf("%i", &codigo);
-    for (int i = 1; i < elementoArray; i++)
-    {
-        if (codigo < 0 || codigo >= elementoArray)
-        {
-            printf("Digite um codigo valido!\n");
-            devolucao();
-        }
-        if (codigo == i)
-        {
-            printf("\nLivro devolvido: \n");
-            printf("%s", livros[i].nome);
-            livros[i].emprestimo = 0;
-        }
-        else
-        {
-            continue;
-        }
-    }
+    printf("\nDEVOLUCAO\n");
+
     int sentinela = 0;
     while (sentinela == 0)
+    {
+
+        printf("Digite o codigo do livro.\n");
+        scanf("%i", &codigo);
+        for (int i = 1; i < elementoArray; i++)
+        {
+            if (livros[codigo].emprestimo == 0)
+            {
+                int condicao2 = 0;
+                printf("O livro ");
+                printf("%s nao esta emprestado.\n", livros[codigo].nome);
+                printf("(1)Tentar novamente              (2)Voltar ao menu\n");
+                scanf("%i", &condicao2);
+                fflush(stdin);
+                if (condicao2 == 1)
+                {
+                    break;
+                }
+                else
+                {
+                    menu();
+                }
+            }
+
+            if (codigo < 0 || codigo >= elementoArray)
+            {
+                printf("Digite um codigo valido!\n");
+                break;
+            }
+            if (codigo == i)
+            {
+                printf("\nLivro devolvido: ");
+                printf("%s", livros[i].nome);
+                livros[i].emprestimo = 0;
+                sentinela = 1;
+                break;
+            }
+        }
+    }
+    int sentinela2 = 0;
+    while (sentinela2 == 0)
     {
 
         printf("Digite o codigo do Cliente: \n");
         scanf("%d", &codigo);
         for (int i = 0; i < elementoArray; i++)
         {
+            if (clientes[codigo].emprestimo == 0)
+            {
+                int condicao = 0;
+                printf("O cliente ");
+                printf("%s nao possui emprestimo.\n", clientes[codigo].nome2);
+                printf("(1)Tentar novamente              (2)Voltar ao menu");
+                scanf("%i", &condicao);
+                fflush(stdin);
+                if (condicao == 1)
+                {
+                    break;
+                }
+                else
+                {
+                    menu();
+                }
+            }
             if (codigo < 0 || codigo >= elementoArray)
             {
                 printf("Digite um codigo valido!\n");
-                continue;
+                break;
             }
             if (codigo == i)
             {
-                printf("\nCliente devoluçao: \n\n");
-                printf("%s", clientes[i].nome2);
+                printf("\nCliente devolucao: ");
+                printf("%s\n", clientes[i].nome2);
                 clientes[i].emprestimo = 0;
-            }
-            else
-            {
-                continue;
+                sentinela2 = 1;
+                break;
             }
         }
     }
@@ -571,37 +643,48 @@ int menu()
     printf("[3] Clientes Cadastrados \n");
     printf("[4] Cadastrar Clientes \n");
     printf("[5] Emprestimo de livros \n");
-    printf("[6] Sair \n");
+    printf("[6] Devolucao de livros \n");
+    printf("[7] Sair \n");
     scanf("%i", &tecla);
     fflush(stdin);
     switch (tecla)
     {
     case 1:
         system("cls");
-        leituraNome("livros.txt");
+        leituraNome("livros.dat");
         menuBiblioteca();
         voltarMenu();
         break;
     case 2:
-        cadastrarLivro("livros.txt");
+        cadastrarLivro("livros.dat");
         voltarMenu();
         break;
     case 3:
         system("cls");
-        leituraCliente("cliente.txt");
+        leituraCliente("cliente.dat");
         leituraCpf("cpf.txt");
         listaClientes();
         system("pause");
+        break;
     case 4:
-        cadastrarCliente("cliente.txt");
+        cadastrarCliente("cliente.dat");
         cadastrarCpf("cpf.txt");
         voltarMenu();
+        break;
     case 5:
-        leituraNome("livros.txt");
-        emprestimoLivro("livros.txt");
+        leituraNome("livros.dat");
+        emprestimoLivro("livros.dat");
         voltarMenu();
+        break;
     case 6:
+        leituraNome("livros.dat");
+        devolucao("livros.dat");
+        voltarMenu();
+        break;
+
+    case 7:
         system("cls");
+        printf("SISTEMA ENCERRADO");
         exit(0);
         break;
     default:
