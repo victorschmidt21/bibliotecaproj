@@ -5,6 +5,8 @@ FILE* arquivo;
 #define tamanho 100
 #define arquivoFechar fclose(arquivo);
 #define arquivoLeitura arquivo = fopen(nomedoarquivo, "r");
+#define arquivoLeitura2 arquivo = fopen(nomedoarquivo2, "r");
+#define arquivoLeitura3 arquivo = fopen(nomedoarquivo3, "r");
 #define arquivoEditar arquivo = fopen(nomedoarquivo, "a");
 #define lerInformacoes array[elementoArray], tamanho, arquivo
 
@@ -14,8 +16,7 @@ char array[tamanho][tamanho];
 
 struct informacoesLivros {
     char nome[50];
-    int genero;
-    char autor[50];
+    char genero [10];
     int emprestimo;
 
 

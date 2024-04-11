@@ -7,8 +7,9 @@
 
 int voltarMenu()
 {
-    printf("Pressione enter para voltar ao menu.");
-    system("pause");
+    printf("Pressione enter para voltar ao menu.\n");
+    getchar();
+    system("cls");
     menu();
 }
 
@@ -35,12 +36,12 @@ int leituraNome(char *nomedoarquivo)
     return 0;
 }
 
-int leituraCliente(char *nomedoarquivo)
+int leituraCliente(char *nomedoarquivo2)
 {
 
     elementoArray = 0;
 
-    arquivoLeitura;
+    arquivoLeitura2;
 
     while (fgets(lerInformacoes))
     {
@@ -58,12 +59,12 @@ int leituraCliente(char *nomedoarquivo)
     return 0;
 }
 
-int leituraCpf(char *nomedoarquivo)
+int leituraCpf(char *nomedoarquivo2)
 {
 
     elementoArray = 0;
 
-    arquivoLeitura;
+    arquivoLeitura2;
 
     while (fgets(lerInformacoes))
     {
@@ -81,13 +82,56 @@ int leituraCpf(char *nomedoarquivo)
     return 0;
 }
 
+int leituraGenero(char *nomedoarquivo)
+{
+
+    elementoArray = 0;
+
+    arquivoLeitura;
+
+    while (fgets(lerInformacoes))
+    {
+        elementoArray++;
+    }
+
+    arquivoFechar;
+
+    for (int i = 0; i < (elementoArray); i++)
+    {
+
+        sprintf(livros[i].genero, "%s", array[i]);
+    }
+
+    return 0;
+}
+
+int leituraEmprestimo(char *nomedoarquivo3)
+{
+
+    elementoArray = 0;
+
+    arquivoLeitura3;
+
+    while (fgets(lerInformacoes))
+    {
+        elementoArray++;
+    }
+
+    arquivoFechar;
+
+    for (int i = 0; i < (elementoArray); i++)
+    {
+
+        sprintf(livros[i].emprestimo, "%s", array[i]);
+    }
+
+    return 0;
+}
+
 int cadastrarLivro(char *nomedoarquivo)
 {
-    int codigo;
     char nome[50];
     fgets(nome, 50, stdin);
-    fflush(stdin);
-
     printf("digite o nome do livro: ");
     fgets(nome, 50, stdin);
     fflush(stdin);
@@ -97,99 +141,27 @@ int cadastrarLivro(char *nomedoarquivo)
     fprintf(arquivo, "%s", nome);
 
     arquivoFechar;
-    int sentinela = 0;
-    int i = elementoArray - 1;
 
-    while (sentinela == 0)
-    {
+    return 0;
+}
 
-        printf("Selecione o genero do livro\n");
-        printf("[1] Romance     [2] Terror     [3] Contos\n");
-        printf("[4] Biografia   [5] Autoajuda  [6] True Crime\n");
-        printf("[7] Ficcao      [8] Poesia     [9] Infantil\n");
-        printf("[10] Religioso  [11] Didatico  [12] Gibi\n");
-        scanf("%d", &codigo);
-        fflush(stdin);
+int cadastrarGenero(char *nomedoarquivo)
+{
+    char genero[10];
+    fgets(genero, 10, stdin);
+    printf("Selecione o genero do livro\n");
+    printf("[1] Romance     [2] Terror     [3] Contos\n");
+    printf("[4] Biografia   [5] Autoajuda  [6] True Crime\n");
+    printf("[7] Ficcao      [8] Poesia     [9] Infantil\n");
+    fgets(genero, 10, stdin);
+    fflush(stdin);
 
-        switch (codigo)
-        {
-        case 1:
-            printf("Voce escolheu o genero Romance\n");
-            livros[i].genero = 1;
-            sentinela = 1;
-            break;
+    arquivoEditar;
 
-        case 2:
-            printf("Voce escolheu o genero Terror\n");
-            livros[i].genero = 2;
-            sentinela = 1;
-            break;
+    fprintf(arquivo, "%s", genero);
 
-        case 3:
-            printf("Voce escolheu o genero Contos\n");
-            livros[i].genero = 3;
-            sentinela = 1;
-            break;
+    arquivoFechar;
 
-        case 4:
-            printf("Voce escolheu o genero Biografia\n");
-            livros[i].genero = 4;
-            sentinela = 1;
-            break;
-
-        case 5:
-            printf("Voce escolheu o genero Autoajuda\n");
-            livros[i].genero = 5;
-            sentinela = 1;
-            break;
-
-        case 6:
-            printf("Voce escolheu o genero True Crime\n");
-            livros[i].genero = 6;
-            sentinela = 1;
-            break;
-
-        case 7:
-            printf("Voce escolheu o genero Ficcao\n");
-            livros[i].genero = 7;
-            sentinela = 1;
-            break;
-
-        case 8:
-            printf("Voce escolheu o genero Poesia\n");
-            livros[i].genero = 8;
-            sentinela = 1;
-            break;
-
-        case 9:
-            printf("Voce escolheu o genero Infantil\n");
-            livros[i].genero = 9;
-            sentinela = 1;
-            break;
-
-        case 10:
-            printf("Voce escolheu o genero Religioso\n");
-            livros[i].genero = 10;
-            sentinela = 1;
-            break;
-
-        case 11:
-            printf("Voce escolheu o genero Didatico\n");
-            livros[i].genero = 11;
-            sentinela = 1;
-            break;
-
-        case 12:
-            printf("Voce escolheu o genero Gibi\n");
-            livros[i].genero = 12;
-            sentinela = 1;
-            break;
-
-        default:
-            printf("Insira um codigo valido!\n");
-            break;
-        }
-    }
     printf("Livro cadastrado com sucesso!\n");
     return 0;
 }
@@ -217,8 +189,6 @@ int cadastrarCliente(char *nomedoarquivo)
 
     char nome2[50];
     fgets(nome2, 50, stdin);
-    fflush(stdin);
-
     printf("digite o nome do Cliente: \n");
     fgets(nome2, 50, stdin);
     fflush(stdin);
@@ -235,6 +205,7 @@ int cadastrarCliente(char *nomedoarquivo)
 int cadastrarCpf(char *nomedoarquivo)
 {
     char cpf[12];
+    fgets(cpf, 50, stdin);
     fgets(cpf, 12, stdin);
     fflush(stdin);
 
@@ -266,6 +237,15 @@ int listaClientes()
 int generos()
 {
     int codigo;
+    char s1[2] = "1";
+    char s2[2] = "2";
+    char s3[2] = "3";
+    char s4[2] = "4";
+    char s5[2] = "5";
+    char s6[2] = "6";
+    char s7[2] = "7";
+    char s8[2] = "8";
+    char s9[2] = "9";
     printf("GENEROS\n\n");
     printf("selecione o genero do livro\n");
     printf("[1] Romance     [2] Terror     [3] Contos\n");
@@ -278,7 +258,7 @@ int generos()
         printf("LIVROS DO GENERO ROMANCE:\n\n");
         printf("Codigo|| Nome do Livro\n");
         for (int i = 0; i < elementoArray; i++)
-            if (livros[i].genero == 1)
+            if (strstr(livros[i].genero, s1) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -292,7 +272,7 @@ int generos()
         printf("LIVROS DO GENERO TERROR:\n\n");
         printf("Codigo|| Nome do Livro\n");
         for (int i = 0; i <= elementoArray; i++)
-            if (livros[i].genero == 2)
+            if (strstr(livros[i].genero, s2) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -306,7 +286,7 @@ int generos()
         printf("LIVROS DO GENERO CONTOS:\n\n");
         printf("Codigo|| Nome do Livro\n");
         for (int i = 0; i <= elementoArray; i++)
-            if (livros[i].genero == 3)
+            if (strstr(livros[i].genero, s3) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -319,7 +299,7 @@ int generos()
         printf("LIVROS DO GENERO BIOGRAFIA:\n\n");
         printf("Codigo|| Nome do Livro\n");
         for (int i = 0; i <= elementoArray; i++)
-            if (livros[i].genero == 4)
+            if (strstr(livros[i].genero, s4) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -332,7 +312,7 @@ int generos()
         printf("LIVROS DO GENERO AUTOAJUDA:\n\n");
         printf("Codigo|| Nome do Livro\n");
         for (int i = 0; i <= elementoArray; i++)
-            if (livros[i].genero == 5)
+            if (strstr(livros[i].genero, s5) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -345,7 +325,7 @@ int generos()
         printf("LIVROS DO GENERO TRUE CRIME:\n\n");
         printf("Codigo|| Nome do Livro\n");
         for (int i = 0; i <= elementoArray; i++)
-            if (livros[i].genero == 6)
+            if (strstr(livros[i].genero, s6) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -358,7 +338,7 @@ int generos()
         printf("LIVROS DO GENERO FICCAO:\n\n");
         printf("Codigo|| Nome do Livro\n");
         for (int i = 0; i <= elementoArray; i++)
-            if (livros[i].genero == 7)
+            if (strstr(livros[i].genero, s7) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -371,7 +351,7 @@ int generos()
         printf("LIVROS DO GENERO POESIA:\n\n");
         printf("Codigo|| Nome do Livro\n");
         for (int i = 0; i <= elementoArray; i++)
-            if (livros[i].genero == 8)
+            if (strstr(livros[i].genero, s8) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -384,7 +364,7 @@ int generos()
         printf("LIVROS DO GENERO INFANTIL:\n\n");
         printf("Codigo|| Nome do Livro\n");
         for (int i = 0; i <= elementoArray; i++)
-            if (livros[i].genero == 7)
+            if (strstr(livros[i].genero, s9) != NULL)
             {
                 printf("%d     || %s \n", i, livros[i].nome);
             }
@@ -397,6 +377,7 @@ int generos()
         printf("Insira um codigo valido!\n");
         break;
     }
+    system("pause");
     return 0;
 }
 
@@ -406,7 +387,7 @@ int menuBiblioteca()
     printf("Selecione a opcao desejada: \n");
     printf("[1] Todos os livros \n");
     printf("[2] Generos \n");
-    printf("[3] Livros empretados \n");
+    printf("[3] Livros emprestados \n");
     printf("[4] Voltar para o Menu \n");
     scanf("%i", &tecla);
     fflush(stdin);
@@ -416,16 +397,19 @@ int menuBiblioteca()
     case 1:
         system("cls");
         leituraNome("livros.txt");
+        leituraGenero("genero.txt");
         Biblioteca();
         break;
     case 2:
         system("cls");
         leituraNome("livros.txt");
+        leituraGenero("genero.txt");
         generos();
         break;
     case 3:
         system("cls");
         leituraNome("livros.txt");
+        leituraGenero("genero.txt");
         livrosEmprestados();
         break;
     case 4:
@@ -447,8 +431,8 @@ int Biblioteca()
     {
 
         printf("%d     || %s \n", i, livros[i].nome);
-    }
 
+    }
     return 0;
 }
 
@@ -538,7 +522,7 @@ int emprestimoLivro()
             }
         }
     }
-    printf("Emprestimo realizado com sucesso!!\n");
+    printf("Empréstimo realizado com sucesso!!\n");
     menu();
     return 0;
 }
@@ -546,13 +530,12 @@ int emprestimoLivro()
 int devolucao()
 {
     int codigo;
-    printf("\nDEVOLUCAO\n");
+    printf("\nDEVOLUÇÃO\n");
 
     int sentinela = 0;
     while (sentinela == 0)
     {
-
-        printf("Digite o codigo do livro.\n");
+        printf("Digite o código do livro.\n");
         scanf("%i", &codigo);
         for (int i = 1; i < elementoArray; i++)
         {
@@ -560,7 +543,7 @@ int devolucao()
             {
                 int condicao2 = 0;
                 printf("O livro ");
-                printf("%s nao esta emprestado.\n", livros[codigo].nome);
+                printf("%s não esta emprestado.\n", livros[codigo].nome);
                 printf("(1)Tentar novamente              (2)Voltar ao menu\n");
                 scanf("%i", &condicao2);
                 fflush(stdin);
@@ -576,7 +559,7 @@ int devolucao()
 
             if (codigo < 0 || codigo >= elementoArray)
             {
-                printf("Digite um codigo valido!\n");
+                printf("Digite um código válido!\n");
                 break;
             }
             if (codigo == i)
@@ -593,16 +576,15 @@ int devolucao()
     while (sentinela2 == 0)
     {
 
-        printf("Digite o codigo do Cliente: \n");
+        printf("Digite o código do Cliente: \n");
         scanf("%d", &codigo);
         for (int i = 0; i < elementoArray; i++)
         {
-            if (clientes[codigo].emprestimo == 0)
+            if (clientes[i].emprestimo == 0)
             {
                 int condicao = 0;
-                printf("O cliente ");
-                printf("%s nao possui emprestimo.\n", clientes[codigo].nome2);
-                printf("(1)Tentar novamente              (2)Voltar ao menu");
+                printf("O cliente %s não possui empréstimo.\n", clientes[i].nome2);
+                printf("[1]Tentar novamente              [2]Voltar ao menu\n");
                 scanf("%i", &condicao);
                 fflush(stdin);
                 if (condicao == 1)
@@ -616,34 +598,34 @@ int devolucao()
             }
             if (codigo < 0 || codigo >= elementoArray)
             {
-                printf("Digite um codigo valido!\n");
+                printf("Digite um código válido!\n");
                 break;
             }
             if (codigo == i)
             {
-                printf("\nCliente devolucao: ");
+                printf("\nCliente devolução: ");
                 printf("%s\n", clientes[i].nome2);
                 clientes[i].emprestimo = 0;
                 sentinela2 = 1;
                 break;
             }
         }
+        printf("Devolução realizado com sucesso!!\n");
+        menu();
+        return 0;
     }
-    printf("Devolucao realizado com sucesso!!\n");
-    menu();
-    return 0;
 }
 
 int menu()
 {
-    int selecao;
-    printf("Selecione a opcao desejada: \n");
+    system("cls");
+    printf("Selecione a opção desejada: \n");
     printf("[1] Biblioteca \n");
     printf("[2] Cadastrar Livro \n");
     printf("[3] Clientes Cadastrados \n");
     printf("[4] Cadastrar Clientes \n");
-    printf("[5] Emprestimo de livros \n");
-    printf("[6] Devolucao de livros \n");
+    printf("[5] Empréstimo de livros \n");
+    printf("[6] Devolução de livros \n");
     printf("[7] Sair \n");
     scanf("%i", &tecla);
     fflush(stdin);
@@ -657,6 +639,7 @@ int menu()
         break;
     case 2:
         cadastrarLivro("livros.txt");
+        cadastrarGenero("genero.txt");
         voltarMenu();
         break;
     case 3:
@@ -671,28 +654,32 @@ int menu()
         voltarMenu();
     case 5:
         leituraNome("livros.txt");
+        leituraCliente("cliente.txt");
         emprestimoLivro("livros.txt");
         voltarMenu();
     case 6:
         leituraNome("livros.txt");
+        leituraCliente("cliente.txt");
         devolucao("livros.txt");
         voltarMenu();
 
     case 7:
         system("cls");
-        printf("SISTEMA ENCERRADO");
+        printf("SISTEMA ENCERRADO!");
         exit(0);
         break;
     default:
-        printf("opcao invalida \n");
+        system("cls");
+        printf("Opção inválida \n\n");
+        menu();
         break;
+
+        return 0;
     }
-    return 0;
 }
 void inicio()
 {
-    setlocale(LC_ALL, "Portuguese");
-    printf("\n\n   \t\t\t\t\tSEJA BEM-ViNDO A BIBLIOTECA BPK\n\n");
+    printf("\n\n   \t\t\t\t\tSEJA BEM-VINDO A BIBLIOTECA BPK\n\n");
     printf("\t\t\t\t\tPRESSIONE ENTER PARA CONTINUAR");
     getchar();
     fflush(stdin);
@@ -702,7 +689,8 @@ void inicio()
 
 int main()
 {
-    setlocale(LC_ALL, "Portuguese");
+    UINT CPAGE_UTF8 = 65001;
+    SetConsoleOutputCP(CPAGE_UTF8);
     inicio();
     return 0;
 }
